@@ -13,23 +13,23 @@ curl_setopt_array($curl, array(
   CURLOPT_CUSTOMREQUEST => 'POST',
   CURLOPT_POSTFIELDS =>'{
   "body": {
-    "text": "Hello World"
+    "text": "$message"
   },
   "footer": {
-    "text": "iczysender"
+    "text": "$footer"
   },
   "action": {
     "buttons": [
       {
         "type": "url",
-        "title": "Visit link",
+        "title": "$title_link",
         "id": "1",
-        "url": "https://iczyser.com"
+        "url": "$link"
       }
     ]
   },
   "type": "button",
-  "to": "6281287718800"
+  "to": "$number"
 }',
   CURLOPT_HTTPHEADER => array(
     'Content-Type: application/json',

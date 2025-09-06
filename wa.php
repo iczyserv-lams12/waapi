@@ -37,9 +37,8 @@ $body = isset($_GET['body']) ? $_GET['body'] : (isset($_POST['body']) ? $_POST['
 $footer = isset($_GET['footer']) ? $_GET['footer'] : (isset($_POST['footer']) ? $_POST['footer'] : '');
 $button1_title = isset($_GET['button1_title']) ? $_GET['button1_title'] : (isset($_POST['button1_title']) ? $_POST['button1_title'] : '');
 $button1_id = isset($_GET['button1_id']) ? $_GET['button1_id'] : (isset($_POST['button1_id']) ? $_POST['button1_id'] : '');
-$button2_title = isset($_GET['button2_title']) ? $_GET['button2_title'] : (isset($_POST['button2_title']) ? $_POST['button2_title'] : '');
-$button2_id = isset($_GET['button2_id']) ? $_GET['button2_id'] : (isset($_POST['button2_id']) ? $_POST['button2_id'] : '');
-$to = isset($_GET['to']) ? $_GET['to'] : (isset($_POST['to']) ? $_POST['to'] : '7887027787');
+$button1_url = isset($_GET['button1_url']) ? $_GET['button1_url'] : (isset($_POST['button1_url']) ? $_POST['button1_url'] : '');
+$to = isset($_GET['to']) ? $_GET['to'] : (isset($_POST['to']) ? $_POST['to'] : '6281287718800');
 
 // Validate required parameters
 if (empty($to)) {
@@ -56,24 +55,20 @@ if (empty($to)) {
 
 // Log incoming request
 $request_params = [
-    'header' => $header,
     'body' => $body,
     'footer' => $footer,
     'button1_title' => $button1_title,
     'button1_id' => $button1_id,
-    'button2_title' => $button2_title,
-    'button2_id' => $button2_id,
+    'button1_url' => $button1_url,
     'to' => $to
 ];
 writeLog("API Request received: " . json_encode($request_params));
 
 // Log parameter status
 $provided_params = [];
-if (!empty($header)) $provided_params[] = 'header';
 if (!empty($body)) $provided_params[] = 'body';
 if (!empty($footer)) $provided_params[] = 'footer';
-if (!empty($button1_title) && !empty($button1_id)) $provided_params[] = 'button1';
-if (!empty($button2_title) && !empty($button2_id)) $provided_params[] = 'button2';
+if (!empty($button1_title) && !empty($button1_id) && !empty($button1_url)) $provided_params[] = 'button1';
 
 writeLog("Parameters provided: " . (empty($provided_params) ? 'none' : implode(', ', $provided_params)));
 
@@ -93,20 +88,12 @@ writeLog("SSL Configuration - Verify Peer: " . ($ssl_verify_peer ? 'true' : 'fal
 $buttons = [];
 
 // Add button 1 if provided
-if (!empty($button1_title) && !empty($button1_id)) {
+if (!empty($button1_title) && !empty($button1_id) && !empty($button1_url)) {
     $buttons[] = [
-        "type" => "quick_reply",
+        "type" => "url",
         "title" => addslashes($button1_title),
-        "id" => addslashes($button1_id)
-    ];
-}
-
-// Add button 2 if provided
-if (!empty($button2_title) && !empty($button2_id)) {
-    $buttons[] = [
-        "type" => "quick_reply",
-        "title" => addslashes($button2_title),
-        "id" => addslashes($button2_id)
+        "id" => addslashes($button1_id),
+        "url" => addslashes($button1_url)
     ];
 }
 

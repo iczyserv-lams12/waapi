@@ -125,9 +125,10 @@ if (!empty($buttons)) {
     $payload_data["action"] = [
         "buttons" => [
             [
-                "type" => "quick_reply",
+                "type" => "url",
                 "title" => "OK",
-                "id" => "default_ok"
+                "id" => "default_1",
+                "url" => "example.com"
             ]
         ]
     ];
